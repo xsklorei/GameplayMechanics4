@@ -153,6 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4936773333392602425, guid: a4f550622151b514fb04563b90875599, type: 3}
+  enemyCount: 2
+  waveNumber: 1
+  powerupPrefab: {fileID: 6312766274364043903, guid: a28e9186670cb694cb098442168054e7, type: 3}
 --- !u!4 &57617655
 Transform:
   m_ObjectHideFlags: 0
@@ -249,6 +252,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fd5555088952419ebf0eb82e9096fa5, type: 3}
+--- !u!1 &279209174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6312766274364043903, guid: a28e9186670cb694cb098442168054e7, type: 3}
+  m_PrefabInstance: {fileID: 770825494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &770825494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6429328405083958534, guid: a28e9186670cb694cb098442168054e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 6429328405083958534, guid: a28e9186670cb694cb098442168054e7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -443,6 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   hasPowerup: 0
+  powerupIndicator: {fileID: 279209174}
 --- !u!54 &859524103
 Rigidbody:
   m_ObjectHideFlags: 0
