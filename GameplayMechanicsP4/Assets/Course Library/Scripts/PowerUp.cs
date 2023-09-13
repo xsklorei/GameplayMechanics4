@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static PowerUp;
 
-public enum PowerUpType {None, Pushback, Rockets };
+public enum PowerUpType {None, Pushback, Rockets, Smash };
 
 public class PowerUp : MonoBehaviour
 {
