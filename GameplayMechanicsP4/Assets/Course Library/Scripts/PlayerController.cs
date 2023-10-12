@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
         {
             LaunchRockets();
         }
+        if(currentPowerUp == PowerUpType.Smash && Input.GetKeyDown(KeyCode.Space) && !smashing)
+        {
+            smashing = true;
+            StartCoroutine(Smash());
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -50,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             currentPowerUp = other.gameObject.GetComponent<PowerUp>().powerupType;
-            powerupIndicator.gameObject.SetActive(true);
+            powerupIndicator.SetActive(true);
             Destroy(other.gameObject);
 
             if(powerupCountdown != null)
@@ -62,12 +67,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator Smash()
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+        floorY = transform.position.y; //store y position
+        float jumpTime = Time.time + hangTime; //calculate time to go up
+        while(Time.time < jumpTime) //move player up and keep x vel
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, smashSpeed);
+            yield return null;
+        }
+        while (transform.position.y > floorY) //move player down
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, -smashSpeed * 2);
+            yield return null;
+        }
+        for (int i = 0; i < enemies.Length; i++) //cycle through all enemies
+        {
+            if(enemies[i] != null) //apply explosion force from our player's position
+            {
+                enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
+            }
+        }
+        smashing = false; // no longer smashing
+    }
+
     IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
         currentPowerUp = PowerUpType.None;
-        powerupIndicator.gameObject.SetActive(false);
+        powerupIndicator.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
